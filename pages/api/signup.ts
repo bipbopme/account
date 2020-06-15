@@ -1,26 +1,16 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import ZimbraAdmin from "../../lib/zimbraAdmin";
 
-const ADMIN_USERNAME = process.env.ZIMBRA_ADMIN_USERNAME;
-const ADMIN_PASSWORD = process.env.ZIMBRA_ADMIN_PASSWORD;
-const ADMIN_SOAP_URL = process.env.ZIMBRA_ADMIN_SOAP_URL;
-const EMAIL_HOST = process.env.ZIMBRA_EMAIL_HOST;
+const ADMIN_USERNAME = process.env.ZIMBRA_ADMIN_USERNAME || "";
+const ADMIN_PASSWORD = process.env.ZIMBRA_ADMIN_PASSWORD || "";
+const ADMIN_SOAP_URL = process.env.ZIMBRA_ADMIN_SOAP_URL || "";
+const EMAIL_HOST = process.env.ZIMBRA_EMAIL_HOST || "";
 
-let zimbraAdmin: ZimbraAdmin;
-
-async function init() {
-  if (ADMIN_USERNAME && ADMIN_PASSWORD && ADMIN_SOAP_URL && EMAIL_HOST) {
-    zimbraAdmin = new ZimbraAdmin(ADMIN_SOAP_URL);
-    await zimbraAdmin.auth(ADMIN_USERNAME, ADMIN_PASSWORD);
-  } else {
-    throw new Error("Missing Zimbra configuration.");
-  }
-}
+const zimbraAdmin = new ZimbraAdmin(ADMIN_SOAP_URL);
 
 async function handler({ body }: NextApiRequest, res: NextApiResponse) {
-  if (!zimbraAdmin) {
-    await init();
-  }
+  // This will only auth if there's not already an auth token
+  await zimbraAdmin.auth(ADMIN_USERNAME, ADMIN_PASSWORD);
 
   const data = JSON.parse(body);
 
