@@ -7,20 +7,18 @@ export default class ZimbraAdmin {
   }
 
   async auth(username: string, password: string): Promise<void> {
-    if (!this.authToken) {
-      const response = await this.post({
-        AuthRequest: {
-          _jsns: "urn:zimbraAdmin",
-          account: {
-            by: "name",
-            _content: username,
-          },
-          password: password,
+    const response = await this.post({
+      AuthRequest: {
+        _jsns: "urn:zimbraAdmin",
+        account: {
+          by: "name",
+          _content: username,
         },
-      });
+        password: password,
+      },
+    });
 
-      this.authToken = response?.Body?.AuthResponse?.authToken[0]?._content;
-    }
+    this.authToken = response?.Body?.AuthResponse?.authToken[0]?._content;
   }
 
   async createAccount(
