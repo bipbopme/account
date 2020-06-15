@@ -1,15 +1,18 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import React from "react";
+import Link from "next/link";
+import Layout from "../components/layout";
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
-
-export default IndexPage
+export default class IndexPage extends React.Component {
+  render() {
+    return (
+      <Layout title="Hi there">
+        <h1>Hello fellow human 👋</h1>
+        <p>
+          <Link href="/signup">
+            <a>Want to sign up for bipbop?</a>
+          </Link>
+        </p>
+      </Layout>
+    );
+  }
+}

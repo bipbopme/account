@@ -8,9 +8,12 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.2.1",
+    "antd": "^4.3.4",
     "next": "latest",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "sass": "^1.26.8"
   },
   "devDependencies": {
     "@types/node": "^12.12.21",
